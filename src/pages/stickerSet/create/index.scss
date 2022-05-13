@@ -1,0 +1,56 @@
+.labelInput {
+  display: inline-block;
+  font-size: 20px;
+
+  margin-right: 10px;
+}
+
+.input {
+  width: 300px;
+  font-size: 16px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #000;
+
+  &::placeholder { color: rgba(0,0,0,.8) }
+}
+
+.rowHeaderCards {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 16px;
+}
+
+.containerCards {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+}
+
+
+.savingContainer {
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0,0,0,.8);
+
+  &::after {
+    text-align: center;
+    content: attr(data-text);
+    color: #fff;
+    font-size: 32px;
+    max-width: 50%;
+  }
+}

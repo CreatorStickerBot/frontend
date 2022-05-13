@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+}
+
+.label {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.imageInput {
+  width: 300px;
+  padding: 7px 0;
+  font-size: 16px;
+  line-height: 16px;
+
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #000;
+
+  cursor: pointer;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .placeholder {
+    opacity: .8;
+  }
+}

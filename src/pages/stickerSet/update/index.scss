@@ -1,0 +1,56 @@
+.deleteAction  {
+  display: flex;
+  align-items: center;
+
+  .selectAllLabel {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+
+    .selectAllText {
+      font-size: 20px;
+      margin-right: 10px;
+    }
+  }
+}
+
+.containerCards {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  justify-items: center;
+}
+
+.labelStickerCard {
+  position: relative;
+
+  cursor: pointer;
+  &:hover .labelStickerCardCheckbox { background: rgba(0,0,0,.3) }
+
+  input[type=checkbox]:checked + .labelStickerCardCheckbox {
+    background: rgba(0,0,0,.5);
+    &::before {
+      content: '';
+      position: absolute;
+      background: url("./assets/checkbox-round-icon.svg");
+      width: 56px;
+      height: 56px;
+    }
+  }
+}
+
+.labelStickerCardCheckbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

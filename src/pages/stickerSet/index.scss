@@ -1,0 +1,69 @@
+@import '~@assets/styles/headers.scss';
+
+.container {}
+
+.header {
+  @include PageHeader
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.actionsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #000;
+}
+
+.row {
+  width: 100%;
+  padding: 10px 0 20px;
+  border-bottom: 1px solid #000;
+
+  .rowTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .title {
+      font-size: 32px;
+      max-width: 60%;
+    }
+    .editIcon {
+      width: 24px;
+      height: 24px;
+      background-image: url("~@assets/icons/edit.svg");
+
+      cursor: pointer;
+      outline: none;
+    }
+  }
+  .rowImages {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+
+    .image {
+      position: relative;
+      min-width: 100px;
+      min-height: 100px;
+      width: 100px;
+      height: 100px;
+      margin-right: 11px;
+      .emoji {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        font-family: monospace;
+        font-size: 32px;
+      }
+      img { width: 100%; height: 100% }
+    }
+  }
+}

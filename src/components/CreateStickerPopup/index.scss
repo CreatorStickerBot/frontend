@@ -1,0 +1,60 @@
+.popupContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  background-color: rgba(0,0,0,.8);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  width: 90vw;
+  height: 90vh;
+  padding: 20px;
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+  background-color: #FFF;
+  position: relative;
+
+  & > *:not(:last-child) {
+    margin-bottom: 20px;
+  }
+}
+
+.title {
+  font-size: 32px;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  width: 32px;
+  height: 32px;
+  background: url("~@assets/icons/close-black.svg");
+  cursor: pointer;
+
+  outline: none;
+  border: none;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+}
+
+.label {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+
+

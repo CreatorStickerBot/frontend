@@ -1,0 +1,17 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & > * { max-width: 80%; }
+  & > *:not(:last-child) { margin-bottom: 20px }
+}
+
+.header {
+  text-align: center;
+  font-size: 32px;
+}

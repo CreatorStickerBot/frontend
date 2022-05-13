@@ -1,0 +1,24 @@
+.container {
+  height: 100%;
+  min-height: 23px;
+  width: 100%;
+  min-width: 23px;
+
+
+  background: linear-gradient(-45deg, #8d8d8d, #c0c0c0);
+  background-size: 200% 200%;
+
+  animation: loadingAnimation 2s infinite ease;
+}
+
+@keyframes loadingAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

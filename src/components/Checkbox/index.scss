@@ -1,0 +1,23 @@
+.label {
+  input:checked + .fakeCheckbox {
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: 24px;
+      height: 24px;
+      background: url("./assets/checkbox-checked.svg");
+    }
+  }
+}
+
+.fakeCheckbox {
+  position: relative;
+  width: 24px;
+  height: 24px;
+
+  background: url("./assets/checkbox-border.svg");
+  cursor: pointer;
+}

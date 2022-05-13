@@ -1,0 +1,64 @@
+.container {
+  position: fixed;
+  z-index: 99999;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background-color: rgba(0,0,0,.8);
+
+  --wCircle: 150px;
+
+  &::before {
+    position: absolute;
+    content: '';
+
+    top: calc(50% - (var(--wCircle) / 2));
+    left: calc(50% - (var(--wCircle) / 2));
+
+    width: var(--wCircle);
+    height: var(--wCircle);
+
+    border-radius: 100%;
+    border: 15px solid #FFF;
+  }
+
+  --wDot: 10px;
+
+
+  @for $i from 1 through 12 {
+    i:nth-child(#{$i}) {
+      --i: #{$i};
+      position: absolute;
+
+      top: calc(50% - var(--wDot) / 2);
+      left: calc(50% - var(--wCircle) / 2 + var(--wDot) / 4);
+
+      width: var(--wDot);
+      height: var(--wDot);
+
+      background-color: black;
+      border-radius: 100%;
+
+      transform-origin: calc(var(--wCircle) / 2 - var(--wDot) / 4);
+      transform: rotate(calc(360deg / 12 * #{$i}));
+
+
+      animation: loading 5s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(calc(360deg / 12 * var(--i)));
+  }
+  100% {
+    transform: rotate(calc(360deg / 12 * var(--i) + 360deg));
+  }
+
+// @todo Подумать на счет прикольной анимации
+//transform: rotate(calc(360deg / (var(--i) * 12)));
+}
