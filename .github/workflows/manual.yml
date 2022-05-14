@@ -34,6 +34,7 @@ jobs:
           CR_REGISTRY: ${{ secrets.CR_REGISTRY }}
           CR_REPOSITORY: yc-cr-creator-sticker-frontend
           IMAGE_TAG: ${{ github.sha }}
+          API_URL: ${{ YC_API_URL }}
         run: |
           docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
