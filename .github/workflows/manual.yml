@@ -47,6 +47,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           mkdir -p ~/.ssh
+          ssh-keygen -R $VM_HOST
           echo $SSH_KEY > ~/.ssh/id_rsa
           ssh $VM_USER@$VM_HOST \
             docker pull cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
