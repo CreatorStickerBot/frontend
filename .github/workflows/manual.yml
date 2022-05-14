@@ -37,10 +37,7 @@ jobs:
         run: |
           docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG --build-arg API_URL=${{ secrets.YC_API_URL }} .
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Create SSH key
+      - name: Deploy
         run: |
           mkdir -p ~/.ssh/
           echo "${SSH_PRIVATE_KEY}" > ../private.key
