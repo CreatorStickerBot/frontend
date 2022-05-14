@@ -11,7 +11,7 @@ class SingletonApi {
     }
 
     this._api = axios.create({
-      baseURL: API_URL
+      baseURL: `http://${VM_HOST}:${BACKEND_PORT}/api`
     })
 
     SingletonApi.instance = this

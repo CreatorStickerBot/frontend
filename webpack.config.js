@@ -10,8 +10,6 @@ const
 
 require('dotenv').config({ path: './.env' });
 
-console.log(process.env.API_URL)
-
 const config = {
   context: path.resolve(__dirname, 'src'),
   resolve: {
@@ -99,7 +97,8 @@ const config = {
       extensions: ['js', 'jsx']
     }),
     new DefinePlugin({
-      API_URL: JSON.stringify(process.env.API_URL),
+      VM_HOST: JSON.stringify(process.env.VM_HOST),
+      BACKEND_PORT: JSON.stringify(process.env.BACKEND_PORT),
       VERSION: JSON.stringify(PackageData.version)
     }),
     new CopyPlugin({

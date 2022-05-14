@@ -5,7 +5,8 @@ module.exports = {
     'es2021': true
   },
   globals: {
-    API_URL: true,
+    VM_HOST: true,
+    BACKEND_PORT: true,
     IS_PROD: true,
     VERSION: true,
   },
