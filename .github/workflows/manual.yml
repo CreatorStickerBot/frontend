@@ -38,6 +38,7 @@ jobs:
           docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG \
             --build-arg BACKEND_PORT=${{ secrets.BACKEND_PORT }} \
             --build-arg VM_HOST=${{ secrets.VM_HOST }} \
+            --build-arg BUILD_NUM=$GITHUB_RUN_NUMBER \
             .
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
       - name: Deploy
@@ -48,10 +49,12 @@ jobs:
           echo "${SSH_KNOWN_HOSTS}" > ~/.ssh/known_hosts
           ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST \
             sudo docker pull cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
-          
           ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST \
-            sudo docker run --name Frontend.$GITHUB_RUN_NUMBER -d -p 80:80 cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
-          
+            sudo docker stop $(sudo docker ps -a -q --filter "name=Frontend")
+          ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST \
+            sudo docker run --name Frontend:$GITHUB_RUN_NUMBER -d -p 80:80 cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+          ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST \
+            sudo docker system prune -a -f
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
