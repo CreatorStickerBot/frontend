@@ -50,7 +50,7 @@ jobs:
           ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST \
             sudo docker pull cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
           ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST \
-            sudo docker ps -q --filter "name=Frontend" | grep -q .
+            sudo docker ps -q --filter "name=Frontend" | grep -q . \
               && sudo docker ps -q --filter "name=Frontend"
           ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST \
             sudo docker stop --time 5 $(sudo docker ps -q --filter "name=Frontend")
