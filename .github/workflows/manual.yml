@@ -37,3 +37,16 @@ jobs:
         run: |
           docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG --build-arg API_URL=${{ secrets.YC_API_URL }} .
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+      - name: Deploy on VM
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          VM_USER: ${{ secrets.VM_USER }}
+          VM_HOST: ${{ secrets.VM_HOST }}
+          CR_REGISTRY: ${{ secrets.CR_REGISTRY }}
+          CR_REPOSITORY: yc-cr-creator-sticker-frontend
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo $SSH_KEY > ~/.ssh/id_rsa
+          ssh $VM_USER@$VH_HOST \
+            docker pull cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+            docker run -d -p 80:80 $CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
