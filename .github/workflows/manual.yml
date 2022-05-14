@@ -43,15 +43,15 @@ jobs:
       - name: Create SSH key
         run: |
           mkdir -p ~/.ssh/
-          echo "$SSH_KEY" > ../private.key
+          echo $SSH_PRIVATE_KEY > ../private.key
           sudo chmod 600 ../private.key
-          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          echo $SSH_KNOWN_HOSTS > ~/.ssh/known_hosts
           ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST \
             sudo docker pull cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG \
             sudo docker run -d -p 80:80 cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
         shell: bash
         env:
-          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
           SSH_KEY_PATH: ${{ github.workspace }}/../private.key
           VM_USER: ${{ secrets.VM_USER }}
