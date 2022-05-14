@@ -57,5 +57,5 @@ jobs:
 #           IMAGE_TAG: ${{ github.sha }}
         run: |
           ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST \
-            docker pull cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
-            docker run -d -p 80:80 $CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+            sudo docker pull cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG \
+            sudo docker run -d -p 80:80 $CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
