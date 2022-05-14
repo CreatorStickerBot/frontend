@@ -48,6 +48,6 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           echo $SSH_KEY > ~/.ssh/id_rsa
-          ssh $VM_USER@$VH_HOST \
+          ssh $VM_USER@$VM_HOST \
             docker pull cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
             docker run -d -p 80:80 $CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
