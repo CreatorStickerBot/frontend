@@ -37,3 +37,26 @@ jobs:
         run: |
           docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG --build-arg API_URL=${{ secrets.YC_API_URL }} .
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+      - name: Deploy
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${SSH_PRIVATE_KEY}" > ../private.key
+          sudo chmod 600 ../private.key
+          echo "${SSH_KNOWN_HOSTS}" > ~/.ssh/known_hosts
+          ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST \
+            sudo docker stop Frontend
+          ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST \
+            sudo docker pull cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+          ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST \
+            sudo docker run --name Frontend -d -p 80:80 cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+          ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST \
+            sudo docker system prune -a -f
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+          SSH_KEY_PATH: ${{ github.workspace }}/../private.key
+          VM_USER: ${{ secrets.VM_USER }}
+          VM_HOST: ${{ secrets.VM_HOST }}
+          CR_REGISTRY: ${{ secrets.CR_REGISTRY }}
+          CR_REPOSITORY: yc-cr-creator-sticker-frontend
+          IMAGE_TAG: ${{ github.sha }}
