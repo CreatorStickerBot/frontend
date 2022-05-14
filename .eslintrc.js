@@ -9,6 +9,7 @@ module.exports = {
     BACKEND_PORT: true,
     IS_PROD: true,
     VERSION: true,
+    BUILD_NUM: true,
   },
   'extends': [
     'eslint:recommended',

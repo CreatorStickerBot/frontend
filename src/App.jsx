@@ -67,7 +67,7 @@ function App() {
         : <LoaderFullScreen />
       }
     </BrowserRouter>
-    <div className={styles.version}>version: {VERSION}</div>
+    <div className={styles.version}>version: {VERSION}.{BUILD_NUM}</div>
   </Store.Provider>
 }
 

@@ -99,6 +99,7 @@ const config = {
     new DefinePlugin({
       VM_HOST: JSON.stringify(process.env.VM_HOST),
       BACKEND_PORT: JSON.stringify(process.env.BACKEND_PORT),
+      BUILD_NUM: JSON.stringify(process.env.BUILD_NUM) || 0,
       VERSION: JSON.stringify(PackageData.version)
     }),
     new CopyPlugin({
