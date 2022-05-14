@@ -37,24 +37,25 @@ jobs:
         run: |
           docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG --build-arg API_URL=${{ secrets.YC_API_URL }} .
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
       - name: Create SSH key
         run: |
           mkdir -p ~/.ssh/
           echo "$SSH_KEY" > ~/.ssh/id_rsa
           sudo chmod 600 ~/.ssh/id_rsa
           echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST \
+            sudo docker pull cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG \
+            sudo docker run -d -p 80:80 cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
         shell: bash
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
           SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
-      - name: Deploy on VM
-        env:
+          SSH_KEY_PATH: ${{ github.workspace }}/../private.key
           VM_USER: ${{ secrets.VM_USER }}
           VM_HOST: ${{ secrets.VM_HOST }}
           CR_REGISTRY: ${{ secrets.CR_REGISTRY }}
           CR_REPOSITORY: yc-cr-creator-sticker-frontend
           IMAGE_TAG: ${{ github.sha }}
-        run: |
-          ssh $VM_USER@$VM_HOST \
-            sudo docker pull cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG \
-            sudo docker run -d -p 80:80 $CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
