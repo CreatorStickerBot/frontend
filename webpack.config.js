@@ -10,6 +10,8 @@ const
 
 require('dotenv').config({ path: './.env' });
 
+console.log(process.env.API_URL)
+
 const config = {
   context: path.resolve(__dirname, 'src'),
   resolve: {
