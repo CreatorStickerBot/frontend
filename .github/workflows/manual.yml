@@ -46,6 +46,7 @@ jobs:
           CR_REPOSITORY: yc-cr-creator-sticker-frontend
           IMAGE_TAG: ${{ github.sha }}
         run: |
+          mkdir -p ~/.ssh
           echo $SSH_KEY > ~/.ssh/id_rsa
           ssh $VM_USER@$VH_HOST \
             docker pull cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
