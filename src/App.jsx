@@ -43,7 +43,7 @@ function App() {
     Api.verificationToken()
       .then(setUserStore)
       .catch(err => {
-        if (err.code === 'ERR_NETWORK' || [404, 400].includes(err.response.status)) {
+        if (err.code !== 'no token' && (err.code === 'ERR_NETWORK' || [404, 400].includes(err.response.status))) {
           setLoadErr('Сервер временно не доступен')
         }
 

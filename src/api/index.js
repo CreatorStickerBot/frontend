@@ -34,7 +34,9 @@ class SingletonApi {
         if (accessToken && refreshToken) {
           this._authApiProcess(accessToken, refreshToken)
         } else {
-          reject()
+          this.checkLifeApi().then(() => {
+            reject({code: 'no token'})
+          }).catch(reject)
           return
         }
       }
