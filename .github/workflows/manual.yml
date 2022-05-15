@@ -52,7 +52,7 @@ jobs:
 
           exit_code=$?
           echo exit code: $exit_code          
-          if [[ $exit_code = 1 ]] || [[ $exit_code = 0 ]] then
+          if [[ "$exit_code" = "1" || "$exit_code" = "0" ]]; then
             echo "Deploy failed"
           fi
 
