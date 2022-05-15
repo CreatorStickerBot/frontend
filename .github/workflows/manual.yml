@@ -41,7 +41,7 @@ jobs:
         echo "${SSH_PRIVATE_KEY}" > ../private.key
         sudo chmod 600 ../private.key
         echo "${SSH_KNOWN_HOSTS}" > ~/.ssh/known_hosts
-        ls -la ..
+        ls -la ../..
         ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST CR_REGISTRY=$CR_REGISTRY CR_REPOSITORY=$CR_REPOSITORY IMAGE_TAG=$IMAGE_TAG GITHUB_RUN_NUMBER=$GITHUB_RUN_NUMBER 'bash -s' < .github/workflows/scripts/deploy-ssh.sh
         
         exit_code=$?
