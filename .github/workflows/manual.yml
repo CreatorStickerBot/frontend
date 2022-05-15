@@ -35,6 +35,7 @@ jobs:
     runs-on: ubuntu-latest
 #    needs: build
     steps:
+    - uses: actions/checkout@v2
     - name: Deploy
       run: |
         mkdir -p ~/.ssh/
