@@ -50,10 +50,8 @@ jobs:
           
           ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST CR_REGISTRY=$CR_REGISTRY CR_REPOSITORY=$CR_REPOSITORY IMAGE_TAG=$IMAGE_TAG GITHUB_RUN_NUMBER=$GITHUB_RUN_NUMBER 'bash -s' < .github/workflows/scripts/deploy-ssh.sh
 
-          echo ?
-          echo $?
-          
-          if [[ $? = 1 ]]; then
+          echo exit code: $?          
+          if [[ $? = 1 ]] || [[ $? = 0 ]]; then
             echo "Deploy failed"
           fi
 
