@@ -52,8 +52,8 @@ jobs:
 
           echo $0
           
-          if [[ $? = 1 ]]; then
-            echo "Deploy failed"
+          if [[ $? = 1 ]]; then \
+            echo "Deploy failed" \
           fi
 
 #          exit_code=$?
