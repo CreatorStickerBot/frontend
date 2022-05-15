@@ -47,14 +47,16 @@ jobs:
           echo "${SSH_PRIVATE_KEY}" > ../private.key
           sudo chmod 600 ../private.key
           echo "${SSH_KNOWN_HOSTS}" > ~/.ssh/known_hosts
+          
           ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST \
             sudo docker pull cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+            
           ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST \
-            sudo docker ps -q --filter "name=Frontend" | grep -q . && sudo docker ps -q --filter "name=Frontend" || true
-          ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST \
-            sudo docker stop $(sudo docker ps -q --filter "name=Frontend")
+            sudo docker ps -q --filter "name=Frontend" | grep -q . && sudo docker stop $(sudo docker ps -q --filter "name=Frontend") || true
+            
           ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST \
             sudo docker run --name Frontend.$GITHUB_RUN_NUMBER -d -p 80:80 cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+            
           ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST \
             sudo docker system prune -a -f
         env:
