@@ -9,15 +9,12 @@ on:
 jobs:
 #  build:
 #    runs-on: ubuntu-latest
-#
 #    steps:
 #      - uses: actions/checkout@v2
-#
 #      - name: Yandex Cloud CR "Login" Action for GitHub Actions
 #        uses: yc-actions/yc-cr-login@v0.1-alpha
 #        with:
 #          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
-#
 #      - name: Build, tag, and push image to Yandex Cloud Container Registry
 #        env:
 #          CR_REGISTRY: ${{ secrets.CR_REGISTRY }}
@@ -42,8 +39,8 @@ jobs:
         echo "${SSH_PRIVATE_KEY}" > ../private.key
         sudo chmod 600 ../private.key
         echo "${SSH_KNOWN_HOSTS}" > ~/.ssh/known_hosts
-        ls -la ../..
-        ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST CR_REGISTRY=$CR_REGISTRY CR_REPOSITORY=$CR_REPOSITORY IMAGE_TAG=$IMAGE_TAG GITHUB_RUN_NUMBER=$GITHUB_RUN_NUMBER 'bash -s' < .github/workflows/scripts/deploy-ssh.sh
+        
+        ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST CR_REGISTRY=$CR_REGISTRY CR_REPOSITORY=$CR_REPOSITORY IMAGE_TAG=$IMAGE_TAG GITHUB_RUN_NUMBER=$GITHUB_RUN_NUMBER 'bash -s -e' < .github/workflows/scripts/deploy-ssh.sh
         
         exit_code=$?
         echo exit code: $exit_code          
