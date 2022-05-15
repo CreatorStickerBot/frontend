@@ -28,7 +28,6 @@ jobs:
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
 
-
       - name: Build, tag, and push image to Yandex Cloud Container Registry
         env:
           CR_REGISTRY: ${{ secrets.CR_REGISTRY }}
@@ -41,6 +40,7 @@ jobs:
             --build-arg BUILD_NUM=$GITHUB_RUN_NUMBER \
             .
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+
       - name: Deploy
         run: |
           mkdir -p ~/.ssh/
@@ -48,7 +48,7 @@ jobs:
           sudo chmod 600 ../private.key
           echo "${SSH_KNOWN_HOSTS}" > ~/.ssh/known_hosts
           
-          ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST CR_REGISTRY=$CR_REGISTRY CR_REPOSITORY=$CR_REPOSITORY IMAGE_TAG=$IMAGE_TAG GITHUB_RUN_NUMBER=$GITHUB_RUN_NUMBER < .github/workflows/scripts/deploy-ssh.sh
+          ssh -i $SSH_KEY_PATH $VM_USER@$VM_HOST CR_REGISTRY=$CR_REGISTRY CR_REPOSITORY=$CR_REPOSITORY IMAGE_TAG=$IMAGE_TAG GITHUB_RUN_NUMBER=$GITHUB_RUN_NUMBER 'bash -s' < .github/workflows/scripts/deploy-ssh.sh
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
