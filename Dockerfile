@@ -21,4 +21,4 @@ FROM nginx:latest AS start
 WORKDIR /usr/share/nginx/html
 
 COPY --from=build /app/dist ./
-COPY --from=build /app/.github/workflows/scripts/fontend.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/.github/workflows/scripts/frontend.conf /etc/nginx/conf.d/default.conf
